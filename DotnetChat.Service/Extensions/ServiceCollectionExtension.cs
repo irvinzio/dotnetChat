@@ -8,6 +8,7 @@ namespace DotnetChat.Service.Extensions
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<ISecurityService, SecurityService>();
             return services;
         }
     }
