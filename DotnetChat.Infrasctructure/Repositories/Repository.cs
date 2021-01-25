@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace InvictusFC.Data.Repositories
+namespace DotnetChat.Infrastructure.Repositories
 {
     public class Repository<T> : IRepository<T>
     where T : class
@@ -21,13 +21,13 @@ namespace InvictusFC.Data.Repositories
         {
             return context.Set<T>();
         }
-        public T Add(T entity)
+        public async Task<T> Add(T entity)
         {
             context.Set<T>().Add(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return entity;
         }
-        public T Delete(Guid id)
+        public async Task<T> Delete(Guid id)
         {
             var entity = context.Set<T>().Find(id);
             if (entity == null)
@@ -35,17 +35,17 @@ namespace InvictusFC.Data.Repositories
                 return entity;
             }
             context.Set<T>().Remove(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return entity;
         }
-        public T Get(Guid id)
+        public async Task<T> Get(Guid id)
         {
-            return context.Set<T>().Find(id);
+            return await context.Set<T>().FindAsync(id);
         }
-        public T Update(T entity)
+        public async Task<T> Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return entity;
         }
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)

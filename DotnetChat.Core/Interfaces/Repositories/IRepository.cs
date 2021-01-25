@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace DotnetChat.Core.Interfaces.Repositories
 {
@@ -8,9 +9,9 @@ namespace DotnetChat.Core.Interfaces.Repositories
     {
         IEnumerable<T> Get();
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
-        T Get(Guid id);
-        T Add(T entity);
-        T Update(T entity);
-        T Delete(Guid id);
+        Task<T> Get(Guid id);
+        Task<T> Add(T entity);
+        Task<T> Update(T entity);
+        Task<T> Delete(Guid id);
     }
 }
