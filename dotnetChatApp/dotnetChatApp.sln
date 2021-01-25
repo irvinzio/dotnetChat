@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetChat.Service", "..\Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetChat.Core", "..\DotnetChat.Core\DotnetChat.Core.csproj", "{32B8AD9C-802B-4A01-8DE0-424DEFAD1143}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetChat.Infrasctructure", "..\DotnetChat.Infrasctructure\DotnetChat.Infrasctructure.csproj", "{5897C13C-047F-4B67-94D5-9D11C68A070F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetChat.Infrasctructure", "..\DotnetChat.Infrasctructure\DotnetChat.Infrasctructure.csproj", "{5897C13C-047F-4B67-94D5-9D11C68A070F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
