@@ -23,7 +23,7 @@ namespace dotnetChatApp.Controllers
         }
         [Route("logout")]
         [HttpPost]
-        public async Task<IActionResult> logout([FromBody] LogInRequest loginRequest)
+        public async Task<IActionResult> logout()
         {
             await _securityService.LogOut();
             return NoContent();
