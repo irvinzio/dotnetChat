@@ -10,10 +10,10 @@ import * as signalR from '@microsoft/signalr';
 })
 export class ChatService {
 
-   private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:44379/chatsocket")   // mapping to the chathub as in startup.cs
+   private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:5001/chatsocket")   // mapping to the chathub as in startup.cs
                                          .configureLogging(signalR.LogLevel.Information)
                                          .build();
-   readonly POST_URL = "https://localhost:44379/api/chat/send"
+   readonly POST_URL = "https://localhost:5001/api/chat/send"
 
   private receivedMessageObject: MessageRequest = new MessageRequest();
   private sharedObj = new Subject<MessageRequest>();
@@ -22,12 +22,10 @@ export class ChatService {
     this.connection.onclose(async () => {
       await this.start();
     });
-   this.connection.on("ReceiveOne", (user, message) => { this.mapReceivedMessage(user, message); });
+   this.connection.on("ReceiveMessage", (user, message) => { this.mapReceivedMessage(user, message); });
    this.start();                 
   }
 
-
-  // Strart the connection
   public async start() {
     try {
       await this.connection.start();
