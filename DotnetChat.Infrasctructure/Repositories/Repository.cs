@@ -48,10 +48,12 @@ namespace DotnetChat.Infrastructure.Repositories
             await context.SaveChangesAsync();
             return entity;
         }
-        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
         {
             var query = context.Set<T>().AsQueryable();
-            return query.Where(predicate);
+            return await query.Where(predicate).ToListAsync();
         }
+        public async Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate)
+        => await context.Set<T>().FirstOrDefaultAsync(predicate);
     }
 }
