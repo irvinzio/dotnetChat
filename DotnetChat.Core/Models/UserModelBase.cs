@@ -7,6 +7,6 @@ namespace DotnetChat.Core.Models
     public abstract class UserModelBase
     {
         public string Email { get; set; }
-        public string Alias { get; set; }
+        public string UserName { get; set; }
     }
 }

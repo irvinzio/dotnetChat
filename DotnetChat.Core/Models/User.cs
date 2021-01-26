@@ -8,6 +8,5 @@ namespace DotnetChat.Core.Models
     public class UserResponse : UserModelBase
     {
         public Guid UserId { get; set; }
-        public IEnumerable<MessageResponse> Messages { get; set; }
     }
 }
