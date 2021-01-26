@@ -4,6 +4,7 @@ using DotnetChat.Core.Interfaces.Repositories;
 using DotnetChat.Core.Models;
 using DotnetChat.Data.Entities;
 using DotnetChat.Infrastructure.Repositories;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,15 +16,19 @@ namespace DotnetChat.Service
     {
         private readonly IRepository<Message> _messageRepo;
         private readonly IMapper _mapper;
-        public ChatService(IRepository<Message> repository, IMapper mapper)
+        private readonly ILogger _logger;
+
+        public ChatService(IRepository<Message> repository, IMapper mapper, ILogger<ChatService> logger)
         {
             _messageRepo  = repository;
             _mapper = mapper;
+            _logger = logger;
         }
         public async Task<MessageResponse> SaveMessage(MessageRequest message)
         {
             var messageEntity =  _mapper.Map<Message>(message);
-            return _mapper.Map<MessageResponse>(await _messageRepo.Update(messageEntity));
+            _logger.LogInformation("saving message recevied", messageEntity);
+            return _mapper.Map<MessageResponse>(await _messageRepo.Add(messageEntity));
         }
     }
 }
