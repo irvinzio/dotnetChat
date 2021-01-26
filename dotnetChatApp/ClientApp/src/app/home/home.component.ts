@@ -5,6 +5,7 @@ import { ChatService } from 'src/services/chat.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   title = 'web-chat-app';
