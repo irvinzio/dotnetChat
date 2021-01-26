@@ -12,14 +12,13 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
             var context = serviceScope.ServiceProvider.GetRequiredService<DotnetChatContext>();
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-
             context.Users.AddRange(
                 new List<User>()
                 {
                     new User
                     {
-                        Email = "irvinzio.ram@gmail.com",
-                        UserName = "irvinzio",
+                        Email = "test2@test.com",
+                        UserName = "testuser2",
                         Messages =  new List<Message>()
                         {
                             new Message() { Text = "hola" }
@@ -27,8 +26,8 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
                     },
                     new User
                     {
-                        Email = "bot.test@bot.com",
-                        UserName = "tets bot",
+                        Email = "test1@test.com",
+                        UserName = "testuser1",
                         Messages =  new List<Message>()
                         {
                             new Message() { Text = "hola, cuanto tiempo" }
