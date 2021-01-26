@@ -33,7 +33,7 @@ namespace DotnetChat.Infrasctructure.Security
             var isCorrectPassword = await userManager.CheckPasswordAsync(user, model.Password);
             if (user == null || !isCorrectPassword)
             {
-                _logger.LogError($"user {model.Email} identtyt wrong credetnials");
+                _logger.LogError($"user {model.Email} identity wrong credetnials");
                 return null;
             }
             var authClaims = await BuildUserClaims(user);

@@ -31,7 +31,35 @@ namespace DotnetChat.Service
         public async Task<LoginResponse> LogIn(LoginRequest model)
         {
             _logger.LogInformation($"user {model.Email} login");
-            return await _authIdentity.LogIn(model);
+
+            var localUser = await GetUserResponse(model.Email);
+
+            if (localUser == null) return null;
+
+            var loginResponse =  await _authIdentity.LogIn(model);
+
+            if (loginResponse == null) await RegisterTestUser(localUser);
+
+            loginResponse = await _authIdentity.LogIn(model);
+
+            loginResponse.user = localUser;
+            return loginResponse;
+        } 
+        private async Task RegisterTestUser(UserResponse localUser)
+        {
+            var indentityRegister = new RegisterRequest()
+            {
+                Username = localUser.UserName,
+                Email = localUser.Email,
+                Password = "TestTest123!"
+            };
+            var registerResponse = await _authIdentity.Register(indentityRegister);
+            if (!registerResponse.Success) throw new Exception("Error registering test user");
+        }
+        private async Task<UserResponse> GetUserResponse(string email)
+        {
+            var userEntity = await _userRepo.FirstOrDefault(s => s.Email == email);
+            return _mapper.Map<UserResponse>(userEntity);
         }
 
         public async Task<RegisterResponse> Register(RegisterRequest model)
