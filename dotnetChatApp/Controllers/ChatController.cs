@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace dotnetChatApp.Controllers
@@ -30,9 +32,17 @@ namespace dotnetChatApp.Controllers
         public async Task<IActionResult> SendRequest([FromBody] MessageRequest message)
         {
             _logger.LogInformation("message recevied", message);
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.Alias, message.Text);
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", message.Email, message.Text);
             await _chatService.SaveMessage(message);
             return Ok();
+        }
+        [Route("retrieve/{userId}")]
+        [HttpGet]
+        public async Task<ActionResult<List<MessageResponse>>> RetrieveMessage(Guid userId)
+        {
+
+            var messages = await _chatService.GetMessages(userId);
+            return Ok(messages);
         }
     }
 }
