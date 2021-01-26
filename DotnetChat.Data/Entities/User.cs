@@ -15,11 +15,8 @@ namespace DotnetChat.Data.Entities
         public string Email { get; set; }
         [Required]
         [StringLength(100)]
-        public string Alias { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string Password { get; set; }
-        
+        public string UserName { get; set; }
+
         public IEnumerable<Message> Messages { get; set; }
     }
 }

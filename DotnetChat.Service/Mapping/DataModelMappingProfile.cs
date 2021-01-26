@@ -12,6 +12,7 @@ namespace DotnetChat.Service.Mapping
             CreateMap<MessageResponse, Message>().ReverseMap();
             CreateMap<UserRequest, User>().ReverseMap();
             CreateMap<UserResponse, User>().ReverseMap();
+            CreateMap<RegisterRequest, User>().ReverseMap();
         }
     }
 }

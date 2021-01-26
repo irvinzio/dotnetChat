@@ -1,5 +1,7 @@
-﻿using DotnetChat.Core.Interfaces.Repositories;
+﻿using DotnetChat.Core.Interfaces;
+using DotnetChat.Core.Interfaces.Repositories;
 using DotnetChat.Data.Context;
+using DotnetChat.Infrasctructure.Security;
 using DotnetChat.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,7 @@ namespace DotnetChat.Infrasctructure.Extensions
         public static IServiceCollection RegisterInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IAutheticationIdentity, AuthenticactionIdentity>();
             return services;
         }
     }

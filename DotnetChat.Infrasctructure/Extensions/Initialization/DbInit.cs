@@ -19,8 +19,7 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
                     new User
                     {
                         Email = "irvinzio.ram@gmail.com",
-                        Alias = "irvinzio",
-                        Password = "123qwe",
+                        UserName = "irvinzio",
                         Messages =  new List<Message>()
                         {
                             new Message() { Text = "hola" }
@@ -29,8 +28,7 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
                     new User
                     {
                         Email = "bot.test@bot.com",
-                        Alias = "tets bot",
-                        Password = "123qwe",
+                        UserName = "tets bot",
                         Messages =  new List<Message>()
                         {
                             new Message() { Text = "hola, cuanto tiempo" }

@@ -15,7 +15,7 @@ namespace DotnetChat.Service.Extensions
         {
             services.AddRepositoryMappings();
             services.AddScoped<IChatService, ChatService>();
-            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<IAutheticationService, AuthenticationService>();
             return services;
         }
     }
