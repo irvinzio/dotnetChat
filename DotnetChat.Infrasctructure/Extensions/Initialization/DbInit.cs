@@ -1,6 +1,7 @@
 ﻿using DotnetChat.Data.Context;
 using DotnetChat.Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 
 namespace DotnetChat.Infrasctructure.Extensions.Initialization
@@ -21,8 +22,9 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
                         UserName = "testuser2",
                         Messages =  new List<Message>()
                         {
-                            new Message() { Text = "hola" }
+                            new Message() { Text = "hola", CreatedAt = DateTime.Now }
                         }
+                       
                     },
                     new User
                     {
@@ -30,7 +32,7 @@ namespace DotnetChat.Infrasctructure.Extensions.Initialization
                         UserName = "testuser1",
                         Messages =  new List<Message>()
                         {
-                            new Message() { Text = "hola, cuanto tiempo" }
+                            new Message() { Text = "hola, cuanto tiempo", CreatedAt = DateTime.Now  }
                         }
                     }
                 }
