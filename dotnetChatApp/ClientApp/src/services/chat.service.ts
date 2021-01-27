@@ -48,7 +48,7 @@ export class ChatService {
 
   public broadcastMessage(msgDto: any) : Observable<any>{
     console.log("sending with header", localStorage.getItem("token"));
-    //this.connection.invoke("ReceiveMessage", msgDto.user, msgDto.text).catch(err => console.error(err));
+    //this.connection.invoke("SendMessage", msgDto.email, msgDto.text, msgDto.userId).catch(err => console.error(err));
     return this.http.post(this.POST_URL, msgDto, { headers: this.createAuthorizationHeader() });
   }
   public getMessages() : Observable<MessageResponse[]>{

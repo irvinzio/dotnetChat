@@ -33,6 +33,7 @@ export class HomeComponent {
         .subscribe(
           (response) => {  
             console.log("message send ", response);  
+            this.msgDto.text='';
           },
           (error) => {                              
             console.error('error caught in component', error)
