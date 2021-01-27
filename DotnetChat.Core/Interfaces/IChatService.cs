@@ -8,6 +8,6 @@ namespace DotnetChat.Core.Interfaces
     public interface IChatService
     {
         Task<MessageResponse> SaveMessage(MessageRequest message);
-        Task<List<MessageResponse>> GetMessages(Guid userId);
+        Task<List<MessageResponse>> GetMessages();
     }
 }

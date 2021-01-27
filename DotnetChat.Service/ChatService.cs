@@ -15,13 +15,13 @@ namespace DotnetChat.Service
 {
     public class ChatService : IChatService
     {
-        private readonly IRepository<Message> _messageRepo;
+        private readonly IMessageRepository _messageRepo;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
-        public ChatService(IRepository<Message> repository, IMapper mapper, ILogger<ChatService> logger)
+        public ChatService(IMessageRepository messageRepository, IMapper mapper, ILogger<ChatService> logger)
         {
-            _messageRepo  = repository;
+            _messageRepo = messageRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -32,12 +32,11 @@ namespace DotnetChat.Service
             _logger.LogInformation("saving message recevied", messageEntity);
             return _mapper.Map<MessageResponse>(await _messageRepo.Add(messageEntity));
         }
-        public async Task<List<MessageResponse>> GetMessages(Guid userId)
+        public async Task<List<MessageResponse>> GetMessages()
         {
-            _logger.LogInformation("getting messages for userId", userId);
-            var meessages = await _messageRepo.Get(m => m.UserId == userId);
-            var meessagesL = meessages.ToList();
-            var list = _mapper.Map<List<MessageResponse>>(meessagesL);
+            _logger.LogInformation("getting messages for userId");
+            var meessages = await _messageRepo.GetAllMessages();
+            var list = _mapper.Map<List<MessageResponse>>(meessages.OrderBy(m => m.CreatedAt));
             return list;
         }
     }

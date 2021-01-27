@@ -11,5 +11,6 @@ namespace DotnetChat.Core.Models
     {
         public Guid MessageId { get; set; }
         public DateTime CreatedAt { get; set; }
-    }
+        public UserResponse User { get; set; }
+}
 }
