@@ -1,23 +1,43 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { AuthorizationService } from 'src/services/authorization.service';
+import { LogInRequest } from 'src/core/models/loginRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+export class LoginComponent {
+  msgDto: LogInRequest = new LogInRequest();
+  comfirmaPassword : string = '';
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
+  constructor(private authService: AuthorizationService,
+    private router: Router) {}
+
+  login(): void {
+    if(this.msgDto) {
+      if(this.msgDto.email.length == 0 || 
+        this.msgDto.password.length == 0){
+          window.alert("All fields are required.");
+        return;
+      } 
+      else {
+        this.authService.login(this.msgDto)
+        .subscribe(
+          (response) => {  
+            localStorage.setItem('token', response.token); 
+            localStorage.setItem('tokenExpiration', response.expiration); 
+            localStorage.setItem("email",response.user.email);
+            localStorage.setItem("userId",response.user.userId);
+            localStorage.setItem("userName",response.user.userName);
+            this.router.navigate(['/home']);   
+          },
+          (error) => {                              
+            console.error('error caught in component', error)
+            window.alert("something went wrong see log for more detail ");
+          }
+        );
+      }
+    }
   }
-}
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
 }

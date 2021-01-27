@@ -7,26 +7,26 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './register/register.component';
-import { FetchDataComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: FetchDataComponent, pathMatch: 'full' },
-      { path: 'login', component: FetchDataComponent },
+      { path: '', component: LoginComponent, pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
       { path: 'home', component: HomeComponent },
-      { path: 'register', component: CounterComponent },
+      { path: 'register', component: RegisterComponent },
       
     ])
   ],

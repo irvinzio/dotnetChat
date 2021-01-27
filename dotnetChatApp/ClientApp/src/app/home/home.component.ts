@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageRequest } from 'src/core/models/messageRequest';
+import { MessageResponse } from 'src/core/models/messageResponse';
 import { ChatService } from 'src/services/chat.service';
 
 @Component({
@@ -9,31 +10,56 @@ import { ChatService } from 'src/services/chat.service';
 })
 export class HomeComponent {
   title = 'web-chat-app';
-  constructor(private chatService: ChatService) {}
+  msgDto: MessageRequest = new MessageRequest();
+  msgInboxArray: MessageResponse[] = [];
 
-  ngOnInit(): void {
-    this.chatService.retrieveMappedObject().subscribe( (receivedObj: MessageRequest) => { this.addToInbox(receivedObj);});
-                                                     
+  constructor(private chatService: ChatService) {
+    this.msgDto.email = localStorage.getItem("email");
+    this.msgDto.userId = localStorage.getItem("userId");
   }
 
-  msgDto: MessageRequest = new MessageRequest();
-  msgInboxArray: MessageRequest[] = [];
+  ngOnInit(): void {
+    this.chatService.retrieveMappedObject().subscribe( (receivedObj: MessageRequest) => { this.addToInbox(receivedObj);}); 
+    this.getMessages()                                               
+  }
 
   send(): void {
     if(this.msgDto) {
-      if(this.msgDto.user.length == 0 || this.msgDto.user.length == 0){
-        window.alert("Both fields are required.");
+      if(this.msgDto.text.length == 0){
+        window.alert("text is required.");
         return;
       } else {
-        this.chatService.broadcastMessage(this.msgDto);
+        this.chatService.broadcastMessage(this.msgDto)
+        .subscribe(
+          (response) => {  
+            console.log("message send ", response);  
+          },
+          (error) => {                              
+            console.error('error caught in component', error)
+            window.alert("something went wrong see log for more detail ");
+          }
+        );
       }
     }
   }
-
+  getMessages(): void {
+      this.chatService.getMessages()
+      .subscribe(
+        (response) => {  
+          console.log("all message retrieve", response);  
+          this.msgInboxArray = response;
+        },
+        (error) => {                              
+          console.error('error caught in component', error)
+          window.alert("something went wrong see log for more detail ");
+        }
+      );
+  }
   addToInbox(obj: MessageRequest) {
-    let newObj = new MessageRequest();
-    newObj.user = obj.user;
-    newObj.msgText = obj.msgText;
+    let newObj = new MessageResponse();
+    newObj.user.email = obj.email;
+    newObj.text = obj.text;
+    newObj.user.userId = obj.userId;
     this.msgInboxArray.push(newObj);
 
   }

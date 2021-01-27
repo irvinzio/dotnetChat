@@ -4,20 +4,15 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+      <img  id="icon" alt="User Icon" />
     </div>
 
     <!-- Login Form -->
     <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" [(ngModel)]="msgDto.email">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="msgDto.password">
+      <input type="submit" class="fadeIn fourth" value="Log In " (click)= "login()">
     </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
 
   </div>
 </div>
@@ -139,7 +134,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text],input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

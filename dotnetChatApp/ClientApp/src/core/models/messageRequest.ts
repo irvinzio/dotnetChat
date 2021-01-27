@@ -1,4 +1,5 @@
 export class MessageRequest {
-    public user: string = '';
-    public msgText: string = '';
+    public text: string = '';
+    public userId: string = '';
+    public email: string = '';
 }
