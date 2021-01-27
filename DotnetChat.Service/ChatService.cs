@@ -20,6 +20,7 @@ namespace DotnetChat.Service
         private readonly IHubProvider _hubProvider;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
+        private const int entryLimit = 50;
 
         public ChatService(IMessageRepository messageRepository, IMapper mapper, ILogger<ChatService> logger, IStockProvider stockProvider, IHubProvider hubProvider)
         {
@@ -48,7 +49,8 @@ namespace DotnetChat.Service
         {
             _logger.LogInformation("getting messages for userId");
             var meessages = await _messageRepo.GetAllMessages();
-            var list = _mapper.Map<List<MessageResponse>>(meessages.OrderBy(m => m.CreatedAt));
+                    
+            var list = _mapper.Map<List<MessageResponse>>(meessages.OrderBy(m => m.CreatedAt).Take(entryLimit));
             return list;
         }
     }
