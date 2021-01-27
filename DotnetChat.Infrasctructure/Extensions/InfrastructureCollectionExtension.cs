@@ -25,6 +25,8 @@ namespace DotnetChat.Infrasctructure.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IAutheticationIdentity, AuthenticactionIdentity>();
+            services.AddScoped<IStockProvider, StockProvider>();
+            services.AddSingleton<IHubProvider, HubProvider>();
             return services;
         }
     }

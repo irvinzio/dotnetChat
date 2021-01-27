@@ -1,8 +1,8 @@
 using DotnetChat.Infrasctructure.Extensions;
 using DotnetChat.Infrasctructure.Extensions.Initialization;
+using DotnetChat.Infrasctructure.Hubs;
 using DotnetChat.Service.Extensions;
 using dotnetChatApp.Authentication;
-using dotnetChatApp.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
